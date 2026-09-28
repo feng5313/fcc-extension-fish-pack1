@@ -1,0 +1,1627 @@
+[
+ {
+  "tex": "AsiaArT.jpg",
+  "cn": "金龙鱼",
+  "en": "Asian Arowana",
+  "cm": 55.0,
+  "role": 5,
+  "beh": {
+   "blps": 0.45,
+   "seek": 330,
+   "turn": 0.4,
+   "leg": 4.4,
+   "alt": 0.4,
+   "zuse": 0.7,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 1.6,
+   "sway": 0.85,
+   "pect": 2.0,
+   "soft": 0.5,
+   "stiff": 0.6
+  },
+  "eco": {
+   "n": 1,
+   "rate": 0.2,
+   "y": 0.36,
+   "sx": 0.94,
+   "sy": 0.42,
+   "sz": 0.4
+  },
+  "barb": true,
+  "noIdle": false,
+  "idle": 0.8,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "アジアアロワナ",
+   "fr_FR": "Arowana asiatique",
+   "de_DE": "Asiatischer Arowana",
+   "es_ES": "Arowana asiático"
+  }
+ },
+ {
+  "tex": "AmemasT.jpg",
+  "cn": "雨鳟",
+  "en": "Whitespotted Char",
+  "cm": 35.0,
+  "role": 0,
+  "beh": {
+   "blps": 1.6,
+   "seek": 440,
+   "turn": 0.52,
+   "leg": 3.2,
+   "alt": 0.08,
+   "zuse": 0.92,
+   "bank": 1.0,
+   "flock": 1
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.4,
+   "sway": 0.85,
+   "pect": 2.8,
+   "soft": 0.48,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 10,
+   "rate": 1.0,
+   "y": 0.1,
+   "sx": 0.88,
+   "sy": 0.56,
+   "sz": 0.44
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "アメマス",
+   "fr_FR": "Omble tacheté",
+   "de_DE": "Weißgefleckter Saibling",
+   "es_ES": "Salvelino japonés"
+  }
+ },
+ {
+  "tex": "AngelT.jpg",
+  "cn": "神仙鱼",
+  "en": "Angelfish",
+  "cm": 15.0,
+  "role": 5,
+  "beh": {
+   "blps": 0.8,
+   "seek": 310,
+   "turn": 0.44,
+   "leg": 5.0,
+   "alt": 0.02,
+   "zuse": 0.6,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 1.5,
+   "sway": 1.05,
+   "pect": 2.0,
+   "soft": 0.85,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 4,
+   "rate": 0.7,
+   "y": 0.0,
+   "sx": 0.58,
+   "sy": 0.62,
+   "sz": 0.3
+  },
+  "fil": true,
+  "noIdle": false,
+  "idle": 0.8,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "エンゼルフィッシュ",
+   "fr_FR": "Scalaire",
+   "de_DE": "Skalar",
+   "es_ES": "Escalar"
+  }
+ },
+ {
+  "tex": "AmagoT.jpg",
+  "cn": "甘子鱼",
+  "en": "Amago Trout",
+  "cm": 18.0,
+  "role": 0,
+  "beh": {
+   "blps": 1.7,
+   "seek": 470,
+   "turn": 0.58,
+   "leg": 2.7,
+   "alt": 0.1,
+   "zuse": 0.96,
+   "bank": 1.05,
+   "flock": 1
+  },
+  "esc": 2.2,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 3.2,
+   "sway": 0.82,
+   "pect": 3.4,
+   "soft": 0.48,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 12,
+   "rate": 1.4,
+   "y": 0.12,
+   "sx": 0.86,
+   "sy": 0.54,
+   "sz": 0.42
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "アマゴ",
+   "fr_FR": "Truite amago",
+   "de_DE": "Amago-Forelle",
+   "es_ES": "Trucha amago"
+  }
+ },
+ {
+  "tex": "AyuT.jpg",
+  "cn": "香鱼",
+  "en": "Ayu",
+  "cm": 18.0,
+  "role": 2,
+  "beh": {
+   "blps": 1.9,
+   "seek": 480,
+   "turn": 0.58,
+   "leg": 2.6,
+   "alt": 0.24,
+   "zuse": 1.0,
+   "bank": 1.1,
+   "flock": 1
+  },
+  "esc": 2.2,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 3.4,
+   "sway": 0.82,
+   "pect": 3.6,
+   "soft": 0.5,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 14,
+   "rate": 1.6,
+   "y": 0.26,
+   "sx": 0.86,
+   "sy": 0.52,
+   "sz": 0.42
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "アユ",
+   "fr_FR": "Ayu",
+   "de_DE": "Ayu",
+   "es_ES": "Ayu"
+  }
+ },
+ {
+  "tex": "BarramT.jpg",
+  "cn": "尖吻鲈",
+  "en": "Barramundi",
+  "cm": 45.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.3,
+   "seek": 400,
+   "turn": 0.46,
+   "leg": 3.4,
+   "alt": -0.05,
+   "zuse": 1.0,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 2.1,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 1.9,
+   "sway": 0.85,
+   "pect": 2.2,
+   "soft": 0.55,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": 0.0,
+   "sx": 0.92,
+   "sy": 0.56,
+   "sz": 0.46
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "バラマンディ",
+   "fr_FR": "Barramundi",
+   "de_DE": "Riesenbarsch",
+   "es_ES": "Barramundi"
+  }
+ },
+ {
+  "tex": "BenizaT.jpg",
+  "cn": "红鲑",
+  "en": "Sockeye Salmon",
+  "cm": 45.0,
+  "role": 0,
+  "beh": {
+   "blps": 1.35,
+   "seek": 430,
+   "turn": 0.5,
+   "leg": 3.4,
+   "alt": 0.06,
+   "zuse": 0.92,
+   "bank": 1.0,
+   "flock": 1
+  },
+  "esc": 2.1,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.2,
+   "sway": 0.8,
+   "pect": 2.6,
+   "soft": 0.45,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 10,
+   "rate": 1.0,
+   "y": 0.1,
+   "sx": 0.9,
+   "sy": 0.58,
+   "sz": 0.46
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "ベニザケ",
+   "fr_FR": "Saumon rouge",
+   "de_DE": "Roter Lachs",
+   "es_ES": "Salmón rojo"
+  }
+ },
+ {
+  "tex": "BlackbT.jpg",
+  "cn": "大口黑鲈",
+  "en": "Largemouth Bass",
+  "cm": 35.0,
+  "role": 1,
+  "beh": {
+   "blps": 0.95,
+   "seek": 370,
+   "turn": 0.48,
+   "leg": 4.6,
+   "alt": -0.12,
+   "zuse": 0.88,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.0,
+   "sway": 0.88,
+   "pect": 2.2,
+   "soft": 0.55,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": -0.1,
+   "sx": 0.9,
+   "sy": 0.56,
+   "sz": 0.44
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "オオクチバス",
+   "fr_FR": "Achigan à grande bouche",
+   "de_DE": "Forellenbarsch",
+   "es_ES": "Lubina de boca grande"
+  }
+ },
+ {
+  "tex": "BluegiT.jpg",
+  "cn": "蓝鳃太阳鱼",
+  "en": "Bluegill",
+  "cm": 18.0,
+  "role": 2,
+  "beh": {
+   "blps": 1.5,
+   "seek": 460,
+   "turn": 0.6,
+   "leg": 2.8,
+   "alt": -0.06,
+   "zuse": 0.84,
+   "bank": 1.05,
+   "flock": 1
+  },
+  "esc": 2.1,
+  "post": "dart",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 3.2,
+   "sway": 0.85,
+   "pect": 3.6,
+   "soft": 0.7,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 12,
+   "rate": 1.2,
+   "y": -0.04,
+   "sx": 0.8,
+   "sy": 0.52,
+   "sz": 0.4
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "ブルーギル",
+   "fr_FR": "Crapet arlequin",
+   "de_DE": "Sonnenbarsch",
+   "es_ES": "Pez sol"
+  }
+ },
+ {
+  "tex": "BrownTT.jpg",
+  "cn": "褐鳟",
+  "en": "Brown Trout",
+  "cm": 40.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.3,
+   "seek": 410,
+   "turn": 0.48,
+   "leg": 3.8,
+   "alt": -0.02,
+   "zuse": 0.96,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.2,
+   "sway": 0.82,
+   "pect": 2.4,
+   "soft": 0.47,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": 0.04,
+   "sx": 0.9,
+   "sy": 0.58,
+   "sz": 0.46
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "ブラウントラウト",
+   "fr_FR": "Truite fario",
+   "de_DE": "Bachforelle",
+   "es_ES": "Trucha común"
+  }
+ },
+ {
+  "tex": "BulueMT.jpg",
+  "cn": "蓝枪鱼",
+  "en": "Blue Marlin",
+  "cm": 150.0,
+  "role": 6,
+  "beh": {
+   "blps": 0.7,
+   "seek": 430,
+   "turn": 0.3,
+   "leg": 2.2,
+   "alt": 0.2,
+   "zuse": 1.2,
+   "bank": 0.85,
+   "flock": 0
+  },
+  "esc": 6.0,
+  "post": "sprint",
+  "escT": 3.5,
+  "anim": {
+   "swimHz": 2.6,
+   "sway": 0.6,
+   "pect": 2.0,
+   "soft": 0.15,
+   "stiff": 0.85
+  },
+  "eco": {
+   "n": 1,
+   "rate": 0.2,
+   "y": 0.26,
+   "sx": 0.94,
+   "sy": 0.5,
+   "sz": 0.44
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": false,
+  "big": true,
+  "tr": {
+   "ja_JP": "クロカジキ",
+   "fr_FR": "Makaire bleu",
+   "de_DE": "Blauer Marlin",
+   "es_ES": "Marlín azul"
+  }
+ },
+ {
+  "tex": "ChinooT.jpg",
+  "cn": "帝王鲑",
+  "en": "Chinook Salmon",
+  "cm": 70.0,
+  "role": 6,
+  "beh": {
+   "blps": 1.25,
+   "seek": 420,
+   "turn": 0.42,
+   "leg": 3.0,
+   "alt": 0.32,
+   "zuse": 1.1,
+   "bank": 1.0,
+   "flock": 1
+  },
+  "esc": 2.4,
+  "post": "sprint",
+  "escT": 2.8,
+  "anim": {
+   "swimHz": 2.2,
+   "sway": 0.75,
+   "pect": 2.2,
+   "soft": 0.45,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 6,
+   "rate": 0.5,
+   "y": 0.06,
+   "sx": 0.94,
+   "sy": 0.92,
+   "sz": 0.46
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "キングサーモン",
+   "fr_FR": "Saumon royal",
+   "de_DE": "Königslachs",
+   "es_ES": "Salmón real"
+  }
+ },
+ {
+  "tex": "ColossT.jpg",
+  "cn": "孔雀鲈",
+  "en": "Peacock Bass",
+  "cm": 50.0,
+  "role": 6,
+  "beh": {
+   "blps": 1.1,
+   "seek": 380,
+   "turn": 0.44,
+   "leg": 3.8,
+   "alt": 0.3,
+   "zuse": 0.8,
+   "bank": 0.95,
+   "flock": 0
+  },
+  "esc": 2.1,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.0,
+   "sway": 0.85,
+   "pect": 2.2,
+   "soft": 0.55,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 1,
+   "rate": 0.2,
+   "y": 0.34,
+   "sx": 0.92,
+   "sy": 0.46,
+   "sz": 0.42
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "ピーコックバス",
+   "fr_FR": "Achiga paon",
+   "de_DE": "Pfauenaugenbuntbarsch",
+   "es_ES": "Pavón"
+  }
+ },
+ {
+  "tex": "DemeKiT.jpg",
+  "cn": "出目金",
+  "en": "Telescope Goldfish",
+  "cm": 12.0,
+  "role": 4,
+  "beh": {
+   "blps": 0.7,
+   "seek": 290,
+   "turn": 0.42,
+   "leg": 5.5,
+   "alt": -0.28,
+   "zuse": 0.8,
+   "bank": 0.8,
+   "flock": 0
+  },
+  "esc": 2.2,
+  "post": "settle",
+  "escT": 2.4,
+  "anim": {
+   "swimHz": 1.3,
+   "sway": 1.35,
+   "pect": 2.8,
+   "soft": 0.9,
+   "stiff": 0.95
+  },
+  "eco": {
+   "n": 3,
+   "rate": 0.5,
+   "y": -0.32,
+   "sx": 0.7,
+   "sy": 0.42,
+   "sz": 0.32
+  },
+  "noIdle": false,
+  "idle": 0.8,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "デメキン",
+   "fr_FR": "Poisson rouge télescope",
+   "de_DE": "Teleskopfisch",
+   "es_ES": "Pez telescopio"
+  }
+ },
+ {
+  "tex": "GuppyBT.jpg",
+  "cn": "孔雀鱼",
+  "en": "Guppy",
+  "cm": 4.5,
+  "role": 2,
+  "beh": {
+   "blps": 2.1,
+   "seek": 500,
+   "turn": 0.66,
+   "leg": 2.4,
+   "alt": 0.28,
+   "zuse": 0.9,
+   "bank": 1.15,
+   "flock": 1
+  },
+  "esc": 2.5,
+  "post": "dart",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 4.6,
+   "sway": 0.8,
+   "pect": 5.6,
+   "soft": 0.95,
+   "stiff": 0.7
+  },
+  "eco": {
+   "n": 16,
+   "rate": 2.0,
+   "y": 0.3,
+   "sx": 0.78,
+   "sy": 0.48,
+   "sz": 0.36
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "グッピー",
+   "fr_FR": "Guppy",
+   "de_DE": "Guppy",
+   "es_ES": "Gupi"
+  }
+ },
+ {
+  "tex": "HumpBaT.jpg",
+  "cn": "驼背鲑",
+  "en": "Humpback Salmon",
+  "cm": 55.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.35,
+   "seek": 390,
+   "turn": 0.44,
+   "leg": 3.6,
+   "alt": 0.05,
+   "zuse": 1.0,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 2.1,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.0,
+   "sway": 0.78,
+   "pect": 2.2,
+   "soft": 0.45,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": 0.08,
+   "sx": 0.92,
+   "sy": 0.54,
+   "sz": 0.46
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "カラフトマス",
+   "fr_FR": "Saumon rose",
+   "de_DE": "Pinklachs",
+   "es_ES": "Salmón rosado"
+  }
+ },
+ {
+  "tex": "KamuruT.jpg",
+  "cn": "黑鱼",
+  "en": "Northern Snakehead",
+  "cm": 60.0,
+  "role": 1,
+  "beh": {
+   "blps": 0.7,
+   "seek": 380,
+   "turn": 0.5,
+   "leg": 4.0,
+   "alt": -0.06,
+   "zuse": 0.9,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.3,
+  "post": "settle",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 1.9,
+   "sway": 0.95,
+   "pect": 2.2,
+   "soft": 0.45,
+   "stiff": 0.25
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.35,
+   "y": -0.06,
+   "sx": 0.9,
+   "sy": 0.52,
+   "sz": 0.42
+  },
+  "noIdle": false,
+  "idle": 0.8,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "カムルチー",
+   "fr_FR": "Poisson serpent du Nord",
+   "de_DE": "Nordischer Schlangenkopf",
+   "es_ES": "Cabeza de serpiente"
+  }
+ },
+ {
+  "tex": "KatuoT.jpg",
+  "cn": "鲣鱼",
+  "en": "Skipjack Tuna",
+  "cm": 50.0,
+  "role": 1,
+  "beh": {
+   "blps": 2.2,
+   "seek": 430,
+   "turn": 0.42,
+   "leg": 2.6,
+   "alt": 0.18,
+   "zuse": 1.1,
+   "bank": 1.0,
+   "flock": 1
+  },
+  "esc": 6.4,
+  "post": "sprint",
+  "escT": 3.0,
+  "anim": {
+   "swimHz": 3.2,
+   "sway": 0.7,
+   "pect": 2.6,
+   "soft": 0.12,
+   "stiff": 0.85
+  },
+  "eco": {
+   "n": 8,
+   "rate": 0.8,
+   "y": 0.02,
+   "sx": 0.94,
+   "sy": 0.86,
+   "sz": 0.48
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "カツオ",
+   "fr_FR": "Bonite à ventre rayé",
+   "de_DE": "Echter Bonito",
+   "es_ES": "Bonito listado"
+  }
+ },
+ {
+  "tex": "KazikaT.jpg",
+  "cn": "杜父鱼",
+  "en": "Japanese Sculpin",
+  "cm": 14.0,
+  "role": 4,
+  "beh": {
+   "blps": 0.9,
+   "seek": 270,
+   "turn": 0.4,
+   "leg": 6.5,
+   "alt": -0.38,
+   "zuse": 0.6,
+   "bank": 0.75,
+   "flock": 0
+  },
+  "esc": 2.4,
+  "post": "dart",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 1.6,
+   "sway": 1.0,
+   "pect": 2.8,
+   "soft": 0.35,
+   "stiff": 0.6
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.35,
+   "y": -0.4,
+   "sx": 0.66,
+   "sy": 0.32,
+   "sz": 0.28
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "カジカ",
+   "fr_FR": "Chabot japonais",
+   "de_DE": "Japanische Groppe",
+   "es_ES": "Caboz japonés"
+  }
+ },
+ {
+  "tex": "KihadaT.jpg",
+  "cn": "黄鳍金枪鱼",
+  "en": "Yellowfin Tuna",
+  "cm": 60.0,
+  "role": 1,
+  "beh": {
+   "blps": 2.0,
+   "seek": 400,
+   "turn": 0.38,
+   "leg": 3.4,
+   "alt": 0.15,
+   "zuse": 1.2,
+   "bank": 0.95,
+   "flock": 0
+  },
+  "esc": 6.0,
+  "post": "sprint",
+  "escT": 3.2,
+  "anim": {
+   "swimHz": 3.0,
+   "sway": 0.68,
+   "pect": 2.4,
+   "soft": 0.13,
+   "stiff": 0.85
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": 0.16,
+   "sx": 0.94,
+   "sy": 0.56,
+   "sz": 0.5
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "キハダマグロ",
+   "fr_FR": "Albacore",
+   "de_DE": "Gelbflossenthun",
+   "es_ES": "Atún de aleta amarilla"
+  }
+ },
+ {
+  "tex": "KumanoT.jpg",
+  "cn": "小丑鱼",
+  "en": "Clownfish",
+  "cm": 8.0,
+  "role": 5,
+  "beh": {
+   "blps": 0.95,
+   "seek": 420,
+   "turn": 0.55,
+   "leg": 3.4,
+   "alt": 0.0,
+   "zuse": 0.6,
+   "bank": 1.1,
+   "flock": 0
+  },
+  "esc": 2.3,
+  "post": "dart",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 3.4,
+   "sway": 0.95,
+   "pect": 4.2,
+   "soft": 0.65,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 4,
+   "rate": 0.7,
+   "y": 0.02,
+   "sx": 0.55,
+   "sy": 0.5,
+   "sz": 0.28
+  },
+  "noIdle": false,
+  "idle": 0.8,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "カクレクマノミ",
+   "fr_FR": "Poisson-clown",
+   "de_DE": "Clownfisch",
+   "es_ES": "Pez payaso"
+  }
+ },
+ {
+  "tex": "KuromaT.jpg",
+  "cn": "蓝旗金枪鱼",
+  "en": "Bluefin Tuna",
+  "cm": 150.0,
+  "role": 1,
+  "beh": {
+   "blps": 2.1,
+   "seek": 420,
+   "turn": 0.36,
+   "leg": 3.0,
+   "alt": 0.2,
+   "zuse": 1.1,
+   "bank": 1.0,
+   "flock": 1
+  },
+  "esc": 6.0,
+  "post": "sprint",
+  "escT": 3.2,
+  "anim": {
+   "swimHz": 2.8,
+   "sway": 0.65,
+   "pect": 2.4,
+   "soft": 0.12,
+   "stiff": 0.85
+  },
+  "eco": {
+   "n": 6,
+   "rate": 0.3,
+   "y": 0.04,
+   "sx": 0.94,
+   "sy": 0.88,
+   "sz": 0.48
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": true,
+  "tr": {
+   "ja_JP": "クロマグロ",
+   "fr_FR": "Thon rouge",
+   "de_DE": "Roter Thun",
+   "es_ES": "Atún rojo"
+  }
+ },
+ {
+  "tex": "LeoparT.jpg",
+  "cn": "豹纹鲨",
+  "en": "Leopard Shark",
+  "cm": 100.0,
+  "role": 1,
+  "beh": {
+   "blps": 0.6,
+   "seek": 280,
+   "turn": 0.34,
+   "leg": 5.0,
+   "alt": -0.2,
+   "zuse": 0.6,
+   "bank": 0.7,
+   "flock": 0
+  },
+  "esc": 1.6,
+  "post": "sprint",
+  "escT": 3.8,
+  "anim": {
+   "swimHz": 1.4,
+   "sway": 0.85,
+   "pect": 1.8,
+   "soft": 0.33,
+   "stiff": 0.0
+  },
+  "eco": {
+   "n": 1,
+   "rate": 0.2,
+   "y": -0.24,
+   "sx": 0.88,
+   "sy": 0.5,
+   "sz": 0.36
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": false,
+  "big": true,
+  "tr": {
+   "ja_JP": "トラザメ",
+   "fr_FR": "Requin léopard",
+   "de_DE": "Leopardhai",
+   "es_ES": "Tiburón leopardo"
+  }
+ },
+ {
+  "tex": "MangroT.jpg",
+  "cn": "红树林鲷",
+  "en": "Mangrove Jack",
+  "cm": 35.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.2,
+   "seek": 380,
+   "turn": 0.46,
+   "leg": 3.6,
+   "alt": -0.06,
+   "zuse": 0.92,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.1,
+   "sway": 0.8,
+   "pect": 2.3,
+   "soft": 0.55,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": -0.04,
+   "sx": 0.9,
+   "sy": 0.54,
+   "sz": 0.44
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "マングローブジャック",
+   "fr_FR": "Vivaneau mangrove",
+   "de_DE": "Mangroven-Schnapper",
+   "es_ES": "Pargo de manglar"
+  }
+ },
+ {
+  "tex": "MeziroT.jpg",
+  "cn": "柠檬鲨",
+  "en": "Lemon Shark",
+  "cm": 150.0,
+  "role": 1,
+  "beh": {
+   "blps": 0.55,
+   "seek": 290,
+   "turn": 0.32,
+   "leg": 5.2,
+   "alt": -0.15,
+   "zuse": 0.7,
+   "bank": 0.7,
+   "flock": 0
+  },
+  "esc": 1.6,
+  "post": "sprint",
+  "escT": 3.8,
+  "anim": {
+   "swimHz": 1.3,
+   "sway": 0.8,
+   "pect": 1.7,
+   "soft": 0.3,
+   "stiff": 0.0
+  },
+  "eco": {
+   "n": 1,
+   "rate": 0.2,
+   "y": -0.18,
+   "sx": 0.9,
+   "sy": 0.54,
+   "sz": 0.4
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": false,
+  "big": true,
+  "tr": {
+   "ja_JP": "レモンザメ",
+   "fr_FR": "Requin citron",
+   "de_DE": "Zitronenhai",
+   "es_ES": "Tiburón limón"
+  }
+ },
+ {
+  "tex": "NeonTeT.jpg",
+  "cn": "霓虹脂鲤",
+  "en": "Neon Tetra",
+  "cm": 3.5,
+  "role": 2,
+  "beh": {
+   "blps": 4.4,
+   "seek": 520,
+   "turn": 0.62,
+   "leg": 2.2,
+   "alt": 0.2,
+   "zuse": 1.0,
+   "bank": 1.2,
+   "flock": 1
+  },
+  "esc": 2.4,
+  "post": "dart",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 4.2,
+   "sway": 0.85,
+   "pect": 5.0,
+   "soft": 0.9,
+   "stiff": 0.7
+  },
+  "eco": {
+   "n": 24,
+   "rate": 3.6,
+   "y": 0.22,
+   "sx": 0.55,
+   "sy": 0.4,
+   "sz": 0.3
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "ネオンテトラ",
+   "fr_FR": "Néon bleu",
+   "de_DE": "Neonsalmler",
+   "es_ES": "Tetra neón"
+  }
+ },
+ {
+  "tex": "NortheT.jpg",
+  "cn": "白斑狗鱼",
+  "en": "Northern Pike",
+  "cm": 50.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.0,
+   "seek": 360,
+   "turn": 0.46,
+   "leg": 5.0,
+   "alt": -0.05,
+   "zuse": 0.84,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.4,
+  "post": "settle",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 1.8,
+   "sway": 0.9,
+   "pect": 2.2,
+   "soft": 0.5,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 1,
+   "rate": 0.2,
+   "y": 0.02,
+   "sx": 0.9,
+   "sy": 0.56,
+   "sz": 0.44
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "カワカマス",
+   "fr_FR": "Brochet",
+   "de_DE": "Hecht",
+   "es_ES": "Lucio"
+  }
+ },
+ {
+  "tex": "OyanirT.jpg",
+  "cn": "大和丽鱼",
+  "en": "Nippon Barbel Steed",
+  "cm": 10.0,
+  "role": 3,
+  "beh": {
+   "blps": 1.1,
+   "seek": 440,
+   "turn": 0.56,
+   "leg": 3.6,
+   "alt": -0.02,
+   "zuse": 0.6,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.6,
+   "sway": 1.05,
+   "pect": 3.0,
+   "soft": 0.6,
+   "stiff": 0.8
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.3,
+   "y": -0.02,
+   "sx": 0.58,
+   "sy": 0.48,
+   "sz": 0.28
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "オヤニラミ",
+   "fr_FR": "Oyanirami",
+   "de_DE": "Oyanirami-Sonnenbarsch",
+   "es_ES": "Oyanirami"
+  }
+ },
+ {
+  "tex": "RantyuT.jpg",
+  "cn": "兰寿金鱼",
+  "en": "Ranchu",
+  "cm": 11.0,
+  "role": 4,
+  "beh": {
+   "blps": 0.6,
+   "seek": 280,
+   "turn": 0.4,
+   "leg": 6.0,
+   "alt": -0.32,
+   "zuse": 0.76,
+   "bank": 0.8,
+   "flock": 0
+  },
+  "esc": 2.2,
+  "post": "settle",
+  "escT": 2.4,
+  "anim": {
+   "swimHz": 1.2,
+   "sway": 1.4,
+   "pect": 2.6,
+   "soft": 0.9,
+   "stiff": 0.95
+  },
+  "eco": {
+   "n": 3,
+   "rate": 0.5,
+   "y": -0.36,
+   "sx": 0.66,
+   "sy": 0.4,
+   "sz": 0.3
+  },
+  "noIdle": false,
+  "idle": 0.8,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "ランチュウ",
+   "fr_FR": "Ranchu",
+   "de_DE": "Ranchu",
+   "es_ES": "Ranchú"
+  }
+ },
+ {
+  "tex": "RedBetT.jpg",
+  "cn": "红斗鱼",
+  "en": "Red Betta",
+  "cm": 6.0,
+  "role": 3,
+  "beh": {
+   "blps": 0.8,
+   "seek": 470,
+   "turn": 0.6,
+   "leg": 3.2,
+   "alt": 0.04,
+   "zuse": 0.52,
+   "bank": 1.05,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.8,
+   "sway": 1.1,
+   "pect": 3.4,
+   "soft": 1.0,
+   "stiff": 0.8
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.3,
+   "y": -0.02,
+   "sx": 0.55,
+   "sy": 0.45,
+   "sz": 0.26
+  },
+  "fil": true,
+  "bigTail": true,
+  "noIdle": false,
+  "idle": 0.8,
+  "half": false,
+  "big": false,
+  "tr": {
+   "ja_JP": "ベタ",
+   "fr_FR": "Combattant",
+   "de_DE": "Kampffisch",
+   "es_ES": "Betta"
+  }
+ },
+ {
+  "tex": "RedheaT.jpg",
+  "cn": "蓝火口",
+  "en": "Blue Firemouth Cichlid",
+  "cm": 25.0,
+  "role": 5,
+  "beh": {
+   "blps": 1.3,
+   "seek": 350,
+   "turn": 0.5,
+   "leg": 3.8,
+   "alt": -0.1,
+   "zuse": 0.84,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 1.9,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 1.8,
+   "sway": 1.0,
+   "pect": 2.4,
+   "soft": 0.7,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 3,
+   "rate": 0.6,
+   "y": -0.1,
+   "sx": 0.72,
+   "sy": 0.56,
+   "sz": 0.34
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "ファイアマウスシクリッド",
+   "fr_FR": "Cichlide bouche de feu",
+   "de_DE": "Feuermaulbuntbarsch",
+   "es_ES": "Cíclido boca de fuego"
+  }
+ },
+ {
+  "tex": "SharksT.jpg",
+  "cn": "银鲨",
+  "en": "Silver Shark",
+  "cm": 30.0,
+  "role": 1,
+  "beh": {
+   "blps": 2.0,
+   "seek": 380,
+   "turn": 0.36,
+   "leg": 4.6,
+   "alt": 0.1,
+   "zuse": 1.2,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.6,
+  "post": "sprint",
+  "escT": 2.8,
+  "anim": {
+   "swimHz": 2.4,
+   "sway": 0.7,
+   "pect": 2.6,
+   "soft": 0.45,
+   "stiff": 0.35
+  },
+  "eco": {
+   "n": 3,
+   "rate": 0.6,
+   "y": 0.06,
+   "sx": 0.94,
+   "sy": 0.74,
+   "sz": 0.46
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "シルバーシャーク",
+   "fr_FR": "Requin bala",
+   "de_DE": "Silberhai",
+   "es_ES": "Tiburón plateado"
+  }
+ },
+ {
+  "tex": "SiamesT.jpg",
+  "cn": "暹罗虎鱼",
+  "en": "Siamese Tigerfish",
+  "cm": 40.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.0,
+   "seek": 380,
+   "turn": 0.46,
+   "leg": 3.6,
+   "alt": -0.04,
+   "zuse": 0.88,
+   "bank": 0.95,
+   "flock": 0
+  },
+  "esc": 1.9,
+  "post": "settle",
+  "escT": 2.2,
+  "anim": {
+   "swimHz": 2.0,
+   "sway": 0.85,
+   "pect": 2.4,
+   "soft": 0.55,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 2,
+   "rate": 0.4,
+   "y": -0.04,
+   "sx": 0.88,
+   "sy": 0.54,
+   "sz": 0.42
+  },
+  "noIdle": false,
+  "idle": 0.3,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "シャムタイガーフィッシュ",
+   "fr_FR": "Poisson-tigre siamois",
+   "de_DE": "Siamesischer Tigerfisch",
+   "es_ES": "Pez tigre siamés"
+  }
+ },
+ {
+  "tex": "SteelhT.jpg",
+  "cn": "钢头鳟",
+  "en": "Steelhead",
+  "cm": 50.0,
+  "role": 0,
+  "beh": {
+   "blps": 1.3,
+   "seek": 440,
+   "turn": 0.5,
+   "leg": 3.0,
+   "alt": 0.12,
+   "zuse": 1.0,
+   "bank": 1.0,
+   "flock": 1
+  },
+  "esc": 2.2,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 2.4,
+   "sway": 0.8,
+   "pect": 2.6,
+   "soft": 0.46,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 10,
+   "rate": 1.0,
+   "y": 0.14,
+   "sx": 0.9,
+   "sy": 0.58,
+   "sz": 0.46
+  },
+  "noIdle": false,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "スチールヘッド",
+   "fr_FR": "Truite arc-en-ciel anadrome",
+   "de_DE": "Stahlkopfforelle",
+   "es_ES": "Trucha steelhead"
+  }
+ },
+ {
+  "tex": "SuzukiT.jpg",
+  "cn": "海鲈",
+  "en": "Japanese Sea Bass",
+  "cm": 40.0,
+  "role": 1,
+  "beh": {
+   "blps": 1.2,
+   "seek": 400,
+   "turn": 0.46,
+   "leg": 3.6,
+   "alt": -0.16,
+   "zuse": 1.0,
+   "bank": 1.0,
+   "flock": 0
+  },
+  "esc": 2.0,
+  "post": "settle",
+  "escT": 2.0,
+  "anim": {
+   "swimHz": 1.8,
+   "sway": 0.9,
+   "pect": 2.2,
+   "soft": 0.55,
+   "stiff": 0.5
+  },
+  "eco": {
+   "n": 3,
+   "rate": 0.6,
+   "y": -0.16,
+   "sx": 0.92,
+   "sy": 0.52,
+   "sz": 0.44
+  },
+  "noIdle": true,
+  "idle": 0.0,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "スズキ",
+   "fr_FR": "Bar japonais",
+   "de_DE": "Japanischer Wolfsbarsch",
+   "es_ES": "Lubina japonesa"
+  }
+ },
+ {
+  "tex": "TurquoT.jpg",
+  "cn": "七彩神仙",
+  "en": "Blue Discus",
+  "cm": 20.0,
+  "role": 5,
+  "beh": {
+   "blps": 0.75,
+   "seek": 300,
+   "turn": 0.44,
+   "leg": 5.0,
+   "alt": 0.0,
+   "zuse": 0.6,
+   "bank": 0.9,
+   "flock": 0
+  },
+  "esc": 2.1,
+  "post": "settle",
+  "escT": 2.4,
+  "anim": {
+   "swimHz": 1.4,
+   "sway": 1.1,
+   "pect": 2.2,
+   "soft": 0.85,
+   "stiff": 0.55
+  },
+  "eco": {
+   "n": 3,
+   "rate": 0.5,
+   "y": 0.0,
+   "sx": 0.6,
+   "sy": 0.55,
+   "sz": 0.3
+  },
+  "fil": true,
+  "noIdle": false,
+  "idle": 0.8,
+  "half": true,
+  "big": false,
+  "tr": {
+   "ja_JP": "ディスカス",
+   "fr_FR": "Discus",
+   "de_DE": "Diskusfisch",
+   "es_ES": "Pez disco"
+  }
+ }
+]
