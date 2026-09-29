@@ -19,9 +19,9 @@
 --           群游开关) + 精确渲染全长 + 分离间距
 --   [beh2]  cs_fish_behavior 模板注入: size还原(物理域换算)
 --   [pick]  cs_variant_pick 模板注入: 随机模式容量加权抽取(群种满编)
---   [tank]  FS全屏发射器×每物种: emitPositionMode=5全屏发射盒,
---           viewAngle=0俯视, 永生, 出生/活动/行为完全由引擎生物
---           网格+水域链决定
+--   [tank]  FS全屏发射器×每物种: emitPositionMode=5全屏发射盒, 永生,
+--           出生/活动/行为完全由引擎生物网格+水域链决定; 视角零指定
+--           (继承引擎鱼群域默认值, 面板可调)
 --   [ui]    粒子面板类别"鱼类扩展"(N变体下拉); 发射器由面板/图片sidecar
 --           配置驱动
 --
@@ -656,29 +656,29 @@ local function ensureType(texDims)
 		-- 恢复默认/rpcMakeEmitter新建三源同源; 字段名=引擎映射表
 		-- light_str→光照强度, env_ambient→环境光系数; normal_map默认0 —
 		-- 面板新建/恢复默认/rpc新建鱼类发射器法线贴图全链默认关(法线槽
-		-- 仍驻场atlas备用, 仅参数开启才采样)
-		defaults = { light_str = 1.5, env_ambient = 1.2, normal_map = 0, view_angle = 0.0 },
+		-- 仍驻场atlas备用, 仅参数开启才采样)。
+		-- 视角零声明 — 继承引擎鱼群行为域默认(behaviorOf==Snow,
+		-- rpcMakeEmitter/applyTypeDefaults内置继承, 值随引擎单源演进)。
+		defaults = { light_str = 1.5, env_ambient = 1.2, normal_map = 0 },
 		-- 类别默认发射位置=0全图(main系统) — 面板选中鱼类扩展类别后
 		-- 新发射器默认全图发射, 可经面板「发射位置」切换其它模式
 		emit_mode = 0,
 		-- fsExitDefaults(引擎通用API) — 面板「发射位置」从全屏(5)切到
 		-- 非全屏(0~4)时, 引擎fsExit分支同帧把声明字段写入面板滑条
-		-- (viewAngle_+paramSize_)+重建后发射器(e.viewAngle/e.sizeOverride)
-		-- 双端。视角残留(非0)会使非全屏+水mask下目标水内/连线校验/
-		-- 鼠标交互全废, 故切换归零。大小: 非全屏
-		-- 10。一次性切换重置非持续强制(用户可再调)。热重载不重注册
-		-- (ensureType类型有效早退), 声明随重启生效。
+		-- (paramSize_等)+重建后发射器(e.sizeOverride等)双端。
+		-- 大小: 非全屏10。一次性切换重置非持续强制(用户可再调)。
+		-- 视角零声明 — 切换不触碰视角, 面板当前值(滑条)原样保留。
+		-- 热重载不重注册(ensureType类型有效早退), 声明随重启生效。
 		fsExitDefaults = {
-			viewAngle = 0.2,
 			sizeOverride = 10.0,
 			lightDirStr = 1.0,
 			envAmbientCoef = 1.0,
 		},
 		-- fsEnterDefaults(引擎对称钩子, 镜像fsExitDefaults) — 「发射位置」
 		-- 切入全屏(非5→5)时同帧置面板滑条+重建后发射器双端:
-		-- viewAngle=0俯视 + sizeOverride=20(SIZE_BASE同源, FS暗底大粒子)。
-		-- guardian兜底见守护块防面板陈旧值回推。
-		fsEnterDefaults = { viewAngle = 0.2, sizeOverride = 20.0, lightDirStr = 1.5 },
+		-- sizeOverride=20(SIZE_BASE同源, FS暗底大粒子)+顶光1.5。
+		-- 视角零声明 — 继承引擎鱼群域默认, 面板可调。
+		fsEnterDefaults = { sizeOverride = 20.0, lightDirStr = 1.5 },
 		panel = {
 			{
 				param = "vfxC",
@@ -1771,8 +1771,8 @@ local function addEmitters()
 			sizeY = G.rtH,
 			sizeZ = 200.0,
 			shape_i = 1, -- Box(全屏盒)
-			viewAngle = 0.2, -- 俯视(heading-first锚, 非全屏
-			-- 水mask下目标水内/连线校验/鼠标交互有效)
+			-- 视角零指定 — emitters.add走rpcMakeEmitter鱼行为域默认
+			-- (引擎单源, 与面板/恢复默认同源), 面板滑条可再调
 			lifeOverride = 30.0, -- 顶格=无限寿命(cs_emit 1e5)
 			-- 物种cm标定在VS注入表(tankAnim row2.z=sizeK×cm, per-particle
 			-- 不丢); 发射器sizeOverride=纯用户倍率(10=1.0物种原大, VS按
@@ -2675,18 +2675,8 @@ fcc.on_update(function(t)
 				patch = patch or {}
 				patch.vfxF = 1.0
 			end
-			-- 非全屏视角: 0.5哨兵/非法值→0纯俯视; 用户显式调节值(≠0.5)
-			-- 原样保留。全屏切换归位走引擎声明钩子(fsExit/fsEnterDefaults,
-			-- 同帧置面板滑条+重建发射器双端), 面板全屏发射器(fs+mode5+
-			-- 非ownIds)与ownIds(FS缸)零干预。
-			local panelFsQ = (e.fs and e.mode == 5 and not ownIds[e.id])
-			if
-				not panelFsQ
-				and (type(e.viewAngle) ~= "number" or e.viewAngle < 0.0 or e.viewAngle > 1.0 or e.viewAngle == 0.5)
-			then
-				patch = patch or {}
-				patch.viewAngle = 0.2
-			end
+			-- 视角零干预 — 任意俯仰都是用户权利(引擎shader鼠标视补偿/
+			-- 出生盘原生支持任意视角), 默认值由引擎鱼群域单源继承。
 			if type(e.vfxB) ~= "number" or e.vfxB < 0.0 or e.vfxB > 1.5 then
 				patch = patch or {}
 				patch.vfxB = 1.0
@@ -2756,12 +2746,11 @@ fcc.on_update(function(t)
 			-- 自有发射器mode治愈 — sidecar持久化的mode1/4发射器原地补丁到
 			--   mode5全屏盒(与addEmitters同源, emitters.update原地补丁不
 			--   重建, 存量鱼不重掷)。用户面板自建发射器(非ownIds)不受影响。
+			--   视角零治愈 — 出生时已继承鱼群域默认, 用户值不回改。
 			if ownIds[e.id] then
-				if
-					(type(e.mode) ~= "number" or math.abs(e.mode - 5) > 0.5)
+				if (type(e.mode) ~= "number" or math.abs(e.mode - 5) > 0.5)
 					or (type(e.sizeX) ~= "number" or math.abs(e.sizeX - G.rtW) > 2.0)
 					or (type(e.sizeY) ~= "number" or math.abs(e.sizeY - G.rtH) > 2.0)
-					or (type(e.viewAngle) ~= "number" or math.abs(e.viewAngle) > 0.0005)
 				then
 					patch = patch or {}
 					patch.emitPositionMode = 5
@@ -2769,7 +2758,6 @@ fcc.on_update(function(t)
 					patch.sizeX = G.rtW
 					patch.sizeY = G.rtH
 					patch.sizeZ = 200.0
-					patch.viewAngle = 0.2
 				end
 			end
 			if patch then
