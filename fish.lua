@@ -1,7 +1,7 @@
 -- ============================================================================
 -- fish.lua — 鱼类扩展 for fcc
 --
--- 纯lua + GPU实现: load时一次性登记 粒子类型/变体/FBX模型/贴图/GLSL注入,
+-- 纯lua + GPU实现: load时一次性登记 粒子类型/变体/FBX模型/贴图/HLSL注入,
 -- 零常驻每帧逻辑。鱼行为(巡游/觅食/打斗/群游/追逐/躲避)由引擎鱼群shader
 -- 驱动, 本脚本只负责数据bake与RPC提交。
 --
@@ -25,7 +25,7 @@
 --   [ui]    粒子面板类别"鱼类扩展"(N变体下拉); 发射器由面板/图片sidecar
 --           配置驱动
 --
--- GLSL注入与动态类型对接:
+-- HLSL注入与动态类型对接:
 --   vs/cs 的 type 变量经 uBehaviorAlias 重映射(动态type→行为域6) ⇒
 --   注入端 type==6u 守卫自动覆盖本类型; VS 的 meshInfo[ti] 用原始type
 --   自有mesh命名空间; fvidx = texIdx - uTexBase[type](own-domain连续
@@ -36,8 +36,8 @@
 -- register_variant×N 延后到 mesh/贴图/注入提交完成后
 -- (variantDomainCount=0 ⇒ cs_emit拒生 ⇒ 数据就绪前零出生)。
 --
--- GLSL注入正文外置 res/shaders/glsl/particle/inject/fish/*.glsl (git
--- 版本控制 + 编辑器GLSL高亮); 本脚本只做数据bake(物种表→const数组)
+-- HLSL注入正文外置 res/shaders/hlsl/particle/inject/fish/*.hlsl (git
+-- 版本控制 + 编辑器HLSL高亮); 本脚本只做数据bake(物种表→const数组)
 -- 与RPC提交; watchdog轮询模板内容变化自动重提交 = 改模板文件即时
 -- 热重载, 无需改本脚本/重启。
 -- ============================================================================
@@ -1247,8 +1247,8 @@ local function computeAnim(variant)
 		a.eyeY = (eyeA.cy + (eyeB and eyeB.cy or eyeA.cy)) / n
 		a.eyeX = math.max(math.abs(eyeA.cx), eyeB and math.abs(eyeB.cx) or 0)
 		a.eyeR = math.max(eyeA.r, eyeB and eyeB.r or 0) * 1.6
-		-- 眼件UV域(tex段表直接索引; rUT域: u=fract(中心),
-		-- v=1-fract(中心)(FS采样行=1-fract(vUV.y)翻转), 半径=span/2)
+		-- 眼件UV域(tex段表直接索引; rUT域: u=frac(中心),
+		-- v=1-frac(中心)(FS采样行=1-frac(vUV.y)翻转), 半径=span/2)
 		-- — FS瞳孔旋转的几何中心(贴图瞳孔转动唯一正解: 几何旋转顶点
 		--   不动贴图, 瞳孔像素永不移动)
 		local seg = G.segsByTex and G.segsByTex[sp.tex]
@@ -1304,9 +1304,9 @@ local function computeAnim(variant)
 end
 
 -- ============================================================================
--- GPU注入: 4路GLSL(vs变形 / cs参数 / cs行为 / fs皮肤)
+-- GPU注入: 4路HLSL(vs变形 / cs参数 / cs行为 / fs皮肤)
 -- ============================================================================
--- 注入代码是**一次性**提交的静态 GLSL 字符串(登记后每帧由 GPU 执行)。
+-- 注入代码是**一次性**提交的静态 HLSL 字符串(登记后每帧由 GPU 执行)。
 -- __TT__(动态type id) / __TB__(槽段base) / __NV__(变体数) 在构建时烘焙。
 
 local function fnum(x)
@@ -1318,7 +1318,7 @@ end
 
 local function declTable(name, rows)
 	local n = #rows
-	return string.format("const vec4 %s[%d] = vec4[%d](\n%s\n);\n", name, n, n, table.concat(rows, ",\n"))
+	return string.format("static const float4 %s[%d] = {\n%s\n};\n", name, n, table.concat(rows, ",\n"))
 end
 
 -- ── 物种行为参数表行(索引 = 变体号, 每变体 2 项) ───────────────────────────
@@ -1331,15 +1331,15 @@ local function speciesRows()
 		local sp = SPECIES[BYVAR[v] or 1]
 		local b = sp.beh
 		rows[#rows + 1] =
-			string.format("vec4(%s,%s,%s,%s)", fnum(cruiseOf(sp)), fnum(b.seek), fnum(b.turn), fnum(b.leg))
-		rows[#rows + 1] = string.format("vec4(%s,%s,%s,%s)", fnum(b.alt), fnum(b.zuse), fnum(b.bank), fnum(b.flock))
+			string.format("float4(%s,%s,%s,%s)", fnum(cruiseOf(sp)), fnum(b.seek), fnum(b.turn), fnum(b.leg))
+		rows[#rows + 1] = string.format("float4(%s,%s,%s,%s)", fnum(b.alt), fnum(b.zuse), fnum(b.bank), fnum(b.flock))
 		-- row2=(swimHz,idlePct,half,0) — 物种尾摆频率经 fishHzF 通道直达CS
 		-- 相位累加器; row2.y=idle时间占比(idle窗dI均值=idlePct·周期);
 		-- row2.z=体型系数(观感偏大种half=0.5, 其余1.0) — 行为块群游间距/
 		-- 碰撞域补偿(粒子size槽出生被引擎钳下限10不随发射器5缩, CS端len链
 		-- 按此系数缩)。
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,0)",
+			"float4(%s,%s,%s,0)",
 			fnum(sp.anim.swimHz or 2.0),
 			fnum(sp.idle or 0.3),
 			fnum(sp.half and 0.5 or 1.0)
@@ -1369,16 +1369,16 @@ local function animRows()
 		local a = G.anim[sp.variant] or {}
 		local an = sp.anim
 		rows[#rows + 1] =
-			string.format("vec4(%s,%s,%s,%s)", fnum(an.swimHz), fnum(an.sway), fnum(an.pect), fnum(a.tailZ or 0.30))
+			string.format("float4(%s,%s,%s,%s)", fnum(an.swimHz), fnum(an.sway), fnum(an.pect), fnum(a.tailZ or 0.30))
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a.pectZ0 or 1e3),
 			fnum(a.pectZ1 or 1e3),
 			fnum(a.pectX or 0.0),
 			fnum(a.zMin or -0.216)
 		)
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a.zMax or 0.216),
 			fnum(a.bodyHalfW or 0.03),
 			-- ×scaleOf=模型缩放比例 — 大小参数默认20时渲染=标定×scale×
@@ -1387,7 +1387,7 @@ local function animRows()
 			fnum(an.soft or 0.5)
 		)
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a.eyeZ or 0.0),
 			fnum(a.eyeY or 0.0),
 			fnum(a.eyeX or 0.0),
@@ -1395,7 +1395,7 @@ local function animRows()
 		)
 		-- barbOn=物种白名单(sp.barb), row4.z=barbZmax
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a.bodyTopY or 0.05),
 			fnum(a.bodyBotY or -0.05),
 			fnum(a.barbZ or 0.0),
@@ -1404,14 +1404,14 @@ local function animRows()
 		-- row5=(bodyStiff前体刚性, filOn丝动画开关, filZ0, filZ1)
 		-- row6=(filY0, filY1, filX, bigTail) — 丝窗=丝对AABB并集(VS⑥b慢扫)
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(an.stiff or 0.5),
 			fnum((sp.fil and a.filZ0) and 1.0 or 0.0),
 			fnum(a.filZ0 or 1e3),
 			fnum(a.filZ1 or -1e3)
 		)
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a.filY0 or 1e3),
 			fnum(a.filY1 or -1e3),
 			fnum(a.filX or 0.0),
@@ -1420,7 +1420,7 @@ local function animRows()
 		-- row7=(pelvZ0, pelvZ1, pelvX, pelvY1) 腹鳍摆动窗=腹鳍对AABB并集
 		-- (z)+y上缘+|x|外缘(VS③b); 无对时哨兵(pelvZ0=1e3/pelvY1=-1e3)
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a.pelvZ0 or 1e3),
 			fnum(a.pelvZ1 or -1e3),
 			fnum(a.pelvX or 0.0),
@@ -1431,7 +1431,7 @@ local function animRows()
 end
 
 -- ── 行为角色表行(索引 = 变体号 0..35) ─────────────────────────────────────
--- vec4(role, spd, visR, accel): visR=掠食视距(px×screenScale) accel=追击
+-- float4(role, spd, visR, accel): visR=掠食视距(px×screenScale) accel=追击
 -- 加速度; role=纯整数角色(群游开关经tankBeh row1.w→flockF)
 local function roleRows()
 	local rows = {}
@@ -1441,7 +1441,7 @@ local function roleRows()
 		-- 加速度与游速成正比
 		local spd = cruiseOf(sp)
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(sp.role or 0),
 			fnum(spd),
 			fnum(560.0 + spd * 2.2),
@@ -1460,7 +1460,7 @@ local function escRows()
 	for v = 0, NTAB - 1 do
 		local sp = SPECIES[BYVAR[v] or 1]
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,0)",
+			"float4(%s,%s,%s,0)",
 			fnum(sp.esc or 1.5),
 			fnum(POST_CODE[sp.post or "settle"] or 2.0),
 			fnum(sp.escT or 2.0)
@@ -1470,19 +1470,19 @@ local function escRows()
 end
 
 -- ============================================================================
--- GLSL注入模板外置 — res/shaders/glsl/particle/inject/fish/
+-- HLSL注入模板外置 — res/shaders/hlsl/particle/inject/fish/
 -- ============================================================================
 -- 全部注入正文(vs_type_deform/fs_fish_skin/cs_fish_params/cs_fish_behavior/
--- cs_variant_pick)住引擎 shader 树(glsl/ RHI域): git版本控制+编辑器GLSL高亮
--- +与papers注入(inject/*.glsl)同址。本脚本职责=数据bake(物种表→const数组
+-- cs_variant_pick)住引擎 shader 树(hlsl/ RHI域): git版本控制+编辑器HLSL高亮
+-- +与papers注入(inject/*.hlsl)同址。本脚本职责=数据bake(物种表→const数组
 -- →declTable拼模板头)+RPC提交(owner='fish'槽位)。
 -- 加载链: 开发树物理路径(本目录退3级=repo根/res/shaders/...) → fcc vfs
 -- (安装版fpk虚拟路径 res/shaders/..., fcc.read_file 自动回退)。
 -- 模板热重载: 主watchdog(a0)每WD_PERIOD比对模板内容, 变化自动重bake+
 -- 重提交(引擎侧pollEvents热重载管线后台重建adopt换装) — 改模板文件保存
 -- 即生效, 无需重启/改本脚本。
--- 守卫/作用域/几何域等GLSL侧说明见各模板文件头注(vs_type_deform.glsl等)。
-local FISH_TPL_SUB = "res/shaders/glsl/particle/inject/fish"
+-- 守卫/作用域/几何域等HLSL侧说明见各模板文件头注(vs_type_deform.hlsl等)。
+local FISH_TPL_SUB = "res/shaders/hlsl/particle/inject/fish"
 local FISH_TPL_NAMES = { "vs_type_deform", "fs_fish_skin", "cs_fish_params", "cs_fish_behavior", "cs_variant_pick" }
 local function tplDirCands()
 	local d = thisDir():gsub("\\", "/")
@@ -1493,7 +1493,7 @@ local function tplDirCands()
 end
 local function fishTpl(name)
 	for _, dir in ipairs(tplDirCands()) do
-		local s = fcc.read_file(dir .. "/" .. name .. ".glsl")
+		local s = fcc.read_file(dir .. "/" .. name .. ".hlsl")
 		if s and s ~= "" then
 			return s
 		end
@@ -1506,7 +1506,7 @@ end
 -- __ZD2__=已废除兜底。模板文件头注有各占位符语义表。
 local function bake(code)
 	-- __ZD2__已废除(分辨率无关: 缸深改shader内读发射器sizeDir.z) — gsub
-	-- 保留兜底(未来正文误引__ZD2__则按1920×1080标定展开, 不静默进GLSL)
+	-- 保留兜底(未来正文误引__ZD2__则按1920×1080标定展开, 不静默进HLSL)
 	return (
 		code:gsub("__TT__", tostring(G.type))
 			:gsub("__TB__", tostring(G.base))
@@ -1519,7 +1519,7 @@ end
 local function bakeTpl(name)
 	local t = fishTpl(name)
 	if not t then
-		log("注入模板缺失: " .. name .. ".glsl (" .. FISH_TPL_SUB .. "/)")
+		log("注入模板缺失: " .. name .. ".hlsl (" .. FISH_TPL_SUB .. "/)")
 		return ""
 	end
 	return bake(t)
@@ -1528,7 +1528,7 @@ end
 local function buildVS()
 	local t = fishTpl("vs_type_deform")
 	if not t then
-		log("注入模板缺失: vs_type_deform.glsl (" .. FISH_TPL_SUB .. "/)")
+		log("注入模板缺失: vs_type_deform.hlsl (" .. FISH_TPL_SUB .. "/)")
 		return ""
 	end
 	return declTable("tankAnim", animRows()) .. bake(t)
@@ -1550,11 +1550,11 @@ local function skinRows()
 		local flowFin = (soft >= 0.62 or longFin) and 1.0 or 0.0
 		-- v向波幅, 配合边缘衰减带0.045永不越行
 		local flowAmp = 0.010 + 0.012 * soft
-		rows[#rows + 1] = string.format("vec4(%s,0.58,%s,%s)", fnum(soft), fnum(flowFin), fnum(flowAmp))
-		rows[#rows + 1] = string.format("vec4(%s,%s,0,0)", fnum(sp.anim.swimHz or 2.0), fnum(cruiseOf(sp)))
+		rows[#rows + 1] = string.format("float4(%s,0.58,%s,%s)", fnum(soft), fnum(flowFin), fnum(flowAmp))
+		rows[#rows + 1] = string.format("float4(%s,%s,0,0)", fnum(sp.anim.swimHz or 2.0), fnum(cruiseOf(sp)))
 		local a = G.anim[v]
 		rows[#rows + 1] = string.format(
-			"vec4(%s,%s,%s,%s)",
+			"float4(%s,%s,%s,%s)",
 			fnum(a and a.eyeU or 0.0),
 			fnum(a and a.eyeV or 0.0),
 			fnum(a and a.eyeRu or 0.0),
@@ -1564,20 +1564,20 @@ local function skinRows()
 	return rows
 end
 
--- fs_fish_skin: 正文住 res/shaders/glsl/particle/inject/fish/
--- fs_fish_skin.glsl(守卫/占位符说明见模板头注); 本函数=
+-- fs_fish_skin: 正文住 res/shaders/hlsl/particle/inject/fish/
+-- fs_fish_skin.hlsl(守卫/占位符说明见模板头注); 本函数=
 -- tankSkin数据表 + bake(模板)。
 local function buildSkin()
 	local t = fishTpl("fs_fish_skin")
 	if not t then
-		log("注入模板缺失: fs_fish_skin.glsl (" .. FISH_TPL_SUB .. "/)")
+		log("注入模板缺失: fs_fish_skin.hlsl (" .. FISH_TPL_SUB .. "/)")
 		return ""
 	end
 	return declTable("tankSkin", skinRows()) .. bake(t)
 end
 
--- cs_fish_params: 正文住 res/shaders/glsl/particle/inject/fish/
--- cs_fish_params.glsl(守卫/占位符说明见模板头注)。
+-- cs_fish_params: 正文住 res/shaders/hlsl/particle/inject/fish/
+-- cs_fish_params.hlsl(守卫/占位符说明见模板头注)。
 
 local function buildCSParams()
 	-- SCALE_P模型缩放比例数组(参数20基准折算旧档语义 — CS_PARAMS_BODY
@@ -1594,20 +1594,16 @@ local function buildCSParams()
 		t[#t + 1] = fnum(scaleOf(sp))
 		lb[#lb + 1] = fnum(SIZE_DENOM * sizeK(1080) * sp.cm * scaleOf(sp))
 	end
-	local scaleArr = "const float SCALE_P["
+	local scaleArr = "static const float SCALE_P["
 		.. NTAB
-		.. "] = float["
-		.. NTAB
-		.. "]("
+		.. "] = {"
 		.. table.concat(t, ",")
-		.. ");\n"
-		.. "const float LEN_CM["
+		.. "};\n"
+		.. "static const float LEN_CM["
 		.. NTAB
-		.. "] = float["
-		.. NTAB
-		.. "]("
+		.. "] = {"
 		.. table.concat(lb, ",")
-		.. ");\n"
+		.. "};\n"
 	-- 物种巡航基准=体长/秒(BL/s) — 绝对速度由 CS_PARAMS_BODY 乘本鱼实际
 	-- 渲染全长(与 VS 同源链)得到, 使 sizeOverride 只改渲染尺寸不改相对
 	-- 速度。单一源: 直接取 SPECIES 行内 beh.blps(cruiseOf 同源)。
@@ -1615,7 +1611,7 @@ local function buildCSParams()
 	for v = 0, NTAB - 1 do
 		bp[#bp + 1] = fnum((SPECIES[BYVAR[v] or 1].beh.blps or 1.0))
 	end
-	local blpsArr = "const float BLPS_P[" .. NTAB .. "] = float[" .. NTAB .. "](" .. table.concat(bp, ",") .. ");\n"
+	local blpsArr = "static const float BLPS_P[" .. NTAB .. "] = {" .. table.concat(bp, ",") .. "};\n"
 	return declTable("tankBeh", speciesRows())
 		.. declTable("tankRole", roleRows())
 		.. declTable("tankEsc", escRows())
@@ -1624,8 +1620,8 @@ local function buildCSParams()
 		.. bakeTpl("cs_fish_params")
 end
 
--- cs_fish_behavior: 正文住 res/shaders/glsl/particle/inject/fish/
--- cs_fish_behavior.glsl(扫描守卫/自身守卫说明见模板头注)。
+-- cs_fish_behavior: 正文住 res/shaders/hlsl/particle/inject/fish/
+-- cs_fish_behavior.hlsl(扫描守卫/自身守卫说明见模板头注)。
 local function buildCSBehavior()
 	-- 行为力已挪cs_fish_params注入点 — 本注入体(EMA后)只剩钉头朝向/
 	-- z钳/roll/size还原, 仅需SCALE_B数组(与SCALE_P同值, 独立声明防跨
@@ -1643,27 +1639,21 @@ local function buildCSBehavior()
 		c[#c + 1] = fnum(cruiseOf(spB_))
 		lb[#lb + 1] = fnum(SIZE_DENOM * sizeK(1080) * spB_.cm * scaleOf(spB_))
 	end
-	local scaleArr = "const float SCALE_B["
+	local scaleArr = "static const float SCALE_B["
 		.. NTAB
-		.. "] = float["
-		.. NTAB
-		.. "]("
+		.. "] = {"
 		.. table.concat(s, ",")
-		.. ");\n"
-		.. "const float CRZ_B["
+		.. "};\n"
+		.. "static const float CRZ_B["
 		.. NTAB
-		.. "] = float["
-		.. NTAB
-		.. "]("
+		.. "] = {"
 		.. table.concat(c, ",")
-		.. ");\n"
-		.. "const float LEN_B["
+		.. "};\n"
+		.. "static const float LEN_B["
 		.. NTAB
-		.. "] = float["
-		.. NTAB
-		.. "]("
+		.. "] = {"
 		.. table.concat(lb, ",")
-		.. ");\n"
+		.. "};\n"
 	return scaleArr .. bakeTpl("cs_fish_behavior")
 end
 
@@ -1671,7 +1661,7 @@ end
 --    行处替换): 加权抽取语义与上限表CAPS(=register_variant count同源,
 --    eco.n)说明见模板头注。锁定变体模式不经此注入(用户显式选择走粒数
 --    滑条)。无状态扫描=天然免疫killAll/重建后的计数漂移。
---    正文模板外置 cs_variant_pick.glsl, 本函数只bake __CAPS__ 配额。
+--    正文模板外置 cs_variant_pick.hlsl, 本函数只bake __CAPS__ 配额。
 local function buildCSPick()
 	if not (G.type and G.base) then
 		return ""
@@ -1683,7 +1673,7 @@ local function buildCSPick()
 	end
 	local t = fishTpl("cs_variant_pick")
 	if not t then
-		log("注入模板缺失: cs_variant_pick.glsl (" .. FISH_TPL_SUB .. "/)")
+		log("注入模板缺失: cs_variant_pick.hlsl (" .. FISH_TPL_SUB .. "/)")
 		return ""
 	end
 	return (bake(t):gsub("__CAPS__", table.concat(caps, ",")))
@@ -2561,8 +2551,8 @@ fcc.on_update(function(t)
 		return
 	end
 	wdNext = t + WD_PERIOD
-	-- (a0) 模板热重载: 注入GLSL模板外置 res/shaders/glsl/particle/
-	--     inject/fish/*.glsl — 比对模板文件内容(与submitShaders时快照),
+	-- (a0) 模板热重载: 注入HLSL模板外置 res/shaders/hlsl/particle/
+	--     inject/fish/*.hlsl — 比对模板文件内容(与submitShaders时快照),
 	--     变化自动重bake+重提交注入(引擎侧pollEvents管线后台重建adopt)。
 	--     改模板文件保存即生效, 无需重启/改本脚本。模板读失败(nil)不触发。
 	if G.shadersDone and G.tplSnaps then
@@ -2575,7 +2565,7 @@ fcc.on_update(function(t)
 			end
 		end
 		if tplChg then
-			log("模板热重载: 注入GLSL模板变化, 重提交5路")
+			log("模板热重载: 注入HLSL模板变化, 重提交5路")
 			submitShaders()
 		end
 	end
@@ -2819,7 +2809,7 @@ fishtank_lens = function()
 	return out
 end
 -- 调试: 重新提交shader注入(注入槽按属主独立拼接, 重提交即覆盖; 资源/
--- 变体登记不动, 仅5路GLSL重编译)
+-- 变体登记不动, 仅5路HLSL重编译)
 fishtank_resubmit = function()
 	G.shadersDone = false
 	local ok, err = submitShaders()
@@ -2912,14 +2902,14 @@ fishtank_anim = function(variant)
 	)
 end
 
--- 调试: 把最近提交的注入 GLSL 导出到文件(核验生成代码/行号/字面量)
+-- 调试: 把最近提交的注入 HLSL 导出到文件(核验生成代码/行号/字面量)
 fishtank_dump_inject = function(dir)
 	if type(io) ~= "table" or not io.open then
 		return "no io lib"
 	end
 	local out = {}
 	for _, it in ipairs(G.lastInject or {}) do
-		local p = (dir or "D:/work/fish/temp") .. "/inj_" .. it.hook .. ".glsl"
+		local p = (dir or "D:/work/fish/temp") .. "/inj_" .. it.hook .. ".hlsl"
 		local f = io.open(p, "w")
 		if not f then
 			return "cannot write " .. p
