@@ -34,6 +34,7 @@
    "sz": 0.4
   },
   "barb": true,
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": false,
@@ -125,6 +126,7 @@
    "sz": 0.3
   },
   "fil": true,
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": false,
@@ -240,7 +242,7 @@
    "alt": -0.05,
    "zuse": 1.0,
    "bank": 1.0,
-   "flock": 0
+   "flock": 1
   },
   "esc": 2.1,
   "post": "settle",
@@ -330,7 +332,7 @@
    "alt": -0.12,
    "zuse": 0.88,
    "bank": 0.9,
-   "flock": 0
+   "flock": 1
   },
   "esc": 2.0,
   "post": "settle",
@@ -420,7 +422,7 @@
    "alt": -0.02,
    "zuse": 0.96,
    "bank": 1.0,
-   "flock": 0
+   "flock": 1
   },
   "esc": 2.0,
   "post": "settle",
@@ -555,7 +557,7 @@
    "alt": 0.3,
    "zuse": 0.8,
    "bank": 0.95,
-   "flock": 0
+   "flock": 1
   },
   "esc": 2.1,
   "post": "settle",
@@ -620,6 +622,7 @@
    "sy": 0.42,
    "sz": 0.32
   },
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": false,
@@ -690,7 +693,7 @@
    "alt": 0.05,
    "zuse": 1.0,
    "bank": 1.0,
-   "flock": 0
+   "flock": 1
   },
   "esc": 2.1,
   "post": "settle",
@@ -755,6 +758,7 @@
    "sy": 0.52,
    "sz": 0.42
   },
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": true,
@@ -1295,6 +1299,7 @@
    "sy": 0.4,
    "sz": 0.3
   },
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": false,
@@ -1342,6 +1347,7 @@
   },
   "fil": true,
   "bigTail": true,
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": false,
@@ -1547,7 +1553,7 @@
    "alt": -0.16,
    "zuse": 1.0,
    "bank": 1.0,
-   "flock": 0
+   "flock": 1
   },
   "esc": 2.0,
   "post": "settle",
@@ -1613,6 +1619,7 @@
    "sz": 0.3
   },
   "fil": true,
+  "vfxF": 0.8,
   "noIdle": false,
   "idle": 0.8,
   "half": true,

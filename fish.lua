@@ -154,6 +154,8 @@ end
 --   胸鳍Hz soft鳍尾柔软度0..1 stiff前体刚性); eco(n推荐粒数 rate发射率
 --   y/sx/sy/sz发射盒分数域); 标志 barb须 fil丝 bigTail半月尾 noIdle恒游
 --   idle懒游占比0|0.3|0.8 half观感减半 big巨鱼档
+--   vfxF发射器"游动速度"参数默认(缺省1.0; <1.0时引擎#2212休游节律
+--   30%idle+30%慢游生效, #2225 flyMulF≥1禁idle)
 -- (贴图=素材忠实直传(fbx.model_to_particle), 无键控无自动推导 — 顶点UV保持
 --  fbx原始值(v tile域), FS注入端按查看器同公式采样)
 
@@ -353,6 +355,7 @@ local function fillSpecies(e, i)
 		eco = {},
 		idle = (e.idle ~= nil) and e.idle or d.idle,
 		noIdle = e.noIdle,
+		vfxF = e.vfxF,
 		half = e.half,
 		big = e.big,
 		barb = e.barb,
@@ -1612,11 +1615,20 @@ local function buildCSParams()
 		bp[#bp + 1] = fnum((SPECIES[BYVAR[v] or 1].beh.blps or 1.0))
 	end
 	local blpsArr = "static const float BLPS_P[" .. NTAB .. "] = {" .. table.concat(bp, ",") .. "};\n"
+	-- noIdle恒游种禁休游标志(金枪/枪鱼/鲣等ram恒速呼吸鱼) — 引擎restGate6
+	-- 速度判据(≤115px/s, 内置鱼域标定)对扩展域标定的ram种失准, 经此表直通
+	-- 拒绝idle/慢游(cs_fish_params注入体写fishNoRestF)。
+	local nr = {}
+	for v = 0, NTAB - 1 do
+		nr[#nr + 1] = (SPECIES[BYVAR[v] or 1].noIdle and 1.0) or 0.0
+	end
+	local norestArr = "static const float NOREST_P[" .. NTAB .. "] = {" .. table.concat(nr, ",") .. "};\n"
 	return declTable("tankBeh", speciesRows())
 		.. declTable("tankRole", roleRows())
 		.. declTable("tankEsc", escRows())
 		.. scaleArr
 		.. blpsArr
+		.. norestArr
 		.. bakeTpl("cs_fish_params")
 end
 
@@ -1737,9 +1749,12 @@ end
 -- ============================================================================
 -- 发射器管理(FS全屏系统; 开关只动发射器 — 资源常驻登记)
 -- ============================================================================
-local function addEmitters()
-	for i, sp in ipairs(SPECIES) do
-		local eco = sp.eco
+-- 单变体发射器构造+提交 — addEmitters(开缸全量)与syncEmitters(缺失补建)
+-- 共用。rpc的rpcOnOwnerSync在owner忙期(shader编译/资源上传)250ms快失败,
+-- 迟到job仍会创建发射器 — fail仅记录, id认领/补建由场景守护收敛。
+local function addEmitterFor(i)
+	local sp = SPECIES[i]
+	local eco = sp.eco
 		local cfg = {
 			system = "fs",
 			type = G.type,
@@ -1776,7 +1791,9 @@ local function addEmitters()
 			-- 全屏鱼被圈进轨道环聚团; 默认-0.3轻排斥(与面板声明default同源,
 			-- 半径×0.33局部避让), 吸引由面板"鼠标吸引"滑条正值开启
 			vfxC = -0.3, -- 鼠标交互(负=轻排斥; 左键点击=散开)
-			vfxF = 1.0, -- 游速倍率
+			-- 游速倍率默认: 物种行vfxF(懒游种<1.0 — 引擎#2212休游节律
+			-- 30%idle+30%慢游, #2225 flyMulF≥1禁idle), 其余1.0原速
+			vfxF = sp.vfxF or 1.0,
 			envAmbientCoef = 1.2, -- 水体漫射环境(默认1.2)
 			lightDirStr = 1.5, -- 顶光强度(默认1.5)
 			-- 光照水平/俯仰角默认90/90(与register_type声明同源)
@@ -1800,15 +1817,21 @@ local function addEmitters()
 		local r = fcc.rpc("particle", "emitters.add", cfg)
 		if r and r.id and r.id >= 0 then
 			G.emitterIds[i] = r.id
-		else
-			log("emitters.add fail #" .. i .. " " .. sp.cn .. ": " .. tostring(r and r.error))
+			return true
 		end
+		log("emitters.add fail #" .. i .. " " .. sp.cn .. ": " .. tostring(r and r.error) .. " — 待守护认领/补建")
+		return false
+end
+
+local function addEmitters()
+	for i = 1, #SPECIES do
+		addEmitterFor(i)
 	end
 	local n = 0
 	for _ in pairs(G.emitterIds) do
 		n = n + 1
 	end
-	log("emitters: " .. n .. "/" .. NSPEC)
+	log("emitters: " .. n .. "/" .. NSPEC .. (n < NSPEC and " (未齐, 守护收敛中)" or ""))
 	return n > 0
 end
 
@@ -1817,6 +1840,90 @@ local function removeEmitters()
 		fcc.rpc("particle", "emitters.remove", { id = id })
 	end
 	G.emitterIds = {}
+end
+
+-- 开缸发射器收敛(认领迟到job/补建缺失/拆重复): addEmitters的rpc在owner忙
+-- 期(shader编译/资源上传)250ms快失败 — 迟到job实际已创建发射器但id未记录
+-- (引擎契约=调用方重试); 未认领的本类型FS发射器会被场景守护foreign判定
+-- 误吞=生态让位误关缸。按变体号(tex)认领迟到路+拆除同变体重复路(迟到与
+-- 补建双份自愈), 缺失变体补建(限速: add在owner忙期250ms超时, 每轮≤4路防
+-- lua worker阻塞); 36/36齐=收敛(G.emSyncDone, enableTank重置/热重载继承)。
+-- foreignBaseline(开缸前用户既有发射器)豁免: 不认领不拆除(共存语义)。
+local function syncEmitters(pinfo, t)
+	if not G.enabled or G.emSyncDone then
+		return
+	end
+	local function cnt()
+		local n = 0
+		for _ in pairs(G.emitterIds) do
+			n = n + 1
+		end
+		return n
+	end
+	if cnt() >= NSPEC then
+		-- 收敛观察期: 迟到job副本可能在own齐后才落地, 8s内继续拆重
+		G.emSyncSettleT = G.emSyncSettleT or (t + 8.0)
+		if t >= G.emSyncSettleT then
+			G.emSyncDone = true
+			return
+		end
+	end
+	local ownIds, baseFs, byVar = {}, G.foreignBaseline or {}, {}
+	for _, id in pairs(G.emitterIds) do
+		ownIds[id] = true
+	end
+	for _, e in ipairs((type(pinfo) == "table" and pinfo.emitters) or {}) do
+		if
+			type(e) == "table"
+			and e.type == G.type
+			and e.fs == true
+			and type(e.id) == "number"
+			and type(e.tex) == "number"
+			and e.tex >= 0
+			and e.tex < NSPEC
+			and not ownIds[e.id]
+			and not baseFs[e.id]
+		then
+			byVar[e.tex] = byVar[e.tex] or {}
+			byVar[e.tex][#byVar[e.tex] + 1] = e.id
+		end
+	end
+	for i, sp in ipairs(SPECIES) do
+		local c = byVar[sp.variant]
+		if type(G.emitterIds[i]) ~= "number" and c and #c > 0 then
+			G.emitterIds[i] = c[1] -- 认领(迟到job创建的发射器)
+			log("发射器认领 #" .. i .. " " .. sp.cn .. " (id=" .. c[1] .. ")")
+		end
+		-- 拆除多余副本(仅收敛期emSyncDone前执行): 补建成功后才落地的迟到
+		-- job副本(同变体第2+路) — 已own变体的未认领同变体发射器只能是迟到
+		-- 残留; 收敛停查后用户面板新建不受影响
+		if c then
+			local keep = G.emitterIds[i]
+			for _, id in ipairs(c) do
+				if id ~= keep then
+					fcc.rpc("particle", "emitters.remove", { id = id })
+					log("发射器拆重 " .. sp.cn .. " (id=" .. id .. ")")
+				end
+			end
+		end
+	end
+	if t >= (G.emSyncAddT or 0.0) then
+		G.emSyncAddT = t + 2.0
+		local added = 0
+		for i = 1, #SPECIES do
+			if added >= 4 then
+				break
+			end
+			if type(G.emitterIds[i]) ~= "number" then
+				addEmitterFor(i)
+				added = added + 1
+			end
+		end
+	end
+	if cnt() >= NSPEC and G.emSyncSettleT and t >= G.emSyncSettleT then
+		G.emSyncDone = true
+		log("发射器收敛完成 " .. NSPEC .. "/" .. NSPEC)
+	end
 end
 
 -- ============================================================================
@@ -2363,27 +2470,32 @@ local function enableTank()
 	-- 既有选择, 与生态群共存; 让位只对**开缸后新增**的foreign发射器触发
 	-- (真用户面板自建→退出)。
 	G.ecoYield = nil
+	-- 秒级重启缸防护: 距上次关缸<5s时沿用旧基线 — 上轮开缸的迟到job副本
+	-- (关缸后才落地)若被重新快照进基线将永久豁免拆重(syncEmitters拆不掉)
+	local fastRestart = G.lastOffT and (os.time() - G.lastOffT < 5)
 	do
 		local ownIds = {}
 		for _, id in pairs(G.emitterIds) do
 			ownIds[id] = true
 		end
 		local base = {}
-		local pinfo = fcc.rpc("particle", "info", {})
-		if type(pinfo) == "table" and type(pinfo.emitters) == "table" then
-			for _, e in ipairs(pinfo.emitters) do
-				if
-					type(e) == "table"
-					and e.type == G.type
-					and e.fs == true
-					and type(e.id) == "number"
-					and not ownIds[e.id]
-				then
-					base[e.id] = true
+		if not fastRestart then
+			local pinfo = fcc.rpc("particle", "info", {})
+			if type(pinfo) == "table" and type(pinfo.emitters) == "table" then
+				for _, e in ipairs(pinfo.emitters) do
+					if
+						type(e) == "table"
+						and e.type == G.type
+						and e.fs == true
+						and type(e.id) == "number"
+						and not ownIds[e.id]
+					then
+						base[e.id] = true
+					end
 				end
 			end
+			G.foreignBaseline = base
 		end
-		G.foreignBaseline = base
 		local n = 0
 		for _ in pairs(base) do
 			n = n + 1
@@ -2393,6 +2505,8 @@ local function enableTank()
 		end
 	end
 	addEmitters()
+	G.emSyncDone = false -- 开缸发射器收敛态重置(认领/补建由场景守护推进)
+	G.emSyncSettleT = nil
 	G.enabled = true
 	log(
 		"鱼类扩展 ON (type="
@@ -2412,6 +2526,7 @@ end
 local function disableTank()
 	removeEmitters()
 	fcc.rpc("particle", "kill_type", { type = G.type })
+	G.lastOffT = os.time() -- 秒级重启缸防护(见enableTank基线快照)
 	G.enabled = false
 	log("鱼类扩展 OFF (粒子清场; 类型/模型/贴图/注入保持登记)")
 end
@@ -2422,6 +2537,7 @@ local function toggleTank()
 	else
 		enableTank()
 	end
+	return G.enabled
 end
 
 -- ============================================================================
@@ -2645,6 +2761,9 @@ fcc.on_update(function(t)
 	-- 默认**不**自动开缸 — 普通运行fcc.exe不得强制出现鱼缸; 登记只注册
 	-- 类型/模型/贴图/注入(面板可选类别), 发射器由用户面板/sidecar档驱动;
 	-- 测试用debug-server动态fishtank_toggle()。
+	-- 开缸发射器收敛 — 必须在下方foreign判定之前: 未认领的本类型FS发射器
+	-- (addEmitters在owner忙期250ms快失败, 迟到job实际创建)=生态让位误关缸
+	syncEmitters(pinfo, t)
 	local ownIds = {}
 	for _, id in pairs(G.emitterIds) do
 		ownIds[id] = true
