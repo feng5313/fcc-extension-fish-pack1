@@ -10,6 +10,12 @@ contents of this project, including but not limited to all source code (e.g.
 fish.lua), resource files (e.g. the res/ directory and res.fpk), documentation
 and other accompanying files (hereinafter collectively "this Project").
 
+本协议以中英文对照形式提供，两种文本如有歧义或不一致之处，以中文版为准。
+
+This Agreement is provided in both Chinese and English. In case of any
+discrepancy or inconsistency between the two versions, the Chinese version
+shall prevail.
+
 1. 授权范围 / 1. Grant of License
 
    1.1 本项目仅允许作为 风吹吹（FCC，https://github.com/feng5313/fcc） 的扩展（extension）免费安装和使用。
