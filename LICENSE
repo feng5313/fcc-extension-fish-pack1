@@ -1,0 +1,112 @@
+风吹吹（FCC）Fish Pack 扩展 许可协议 / FCC Fish Pack Extension License
+Copyright (c) 2026 fcc-extension-fish-pack1 authors. All rights reserved.
+
+本许可协议（以下简称"本协议"）适用于本项目的全部内容，包括但不限于所有源代码
+（如 fish.lua）、资源文件（如 res/ 目录、res.fpk）、文档及其他配套文件
+（以下统称"本项目"）。
+
+This license agreement (hereinafter "this Agreement") applies to the entire
+contents of this project, including but not limited to all source code (e.g.
+fish.lua), resource files (e.g. the res/ directory and res.fpk), documentation
+and other accompanying files (hereinafter collectively "this Project").
+
+1. 授权范围 / 1. Grant of License
+
+   1.1 本项目仅允许作为 风吹吹（FCC） 的扩展（extension）免费安装和使用。
+
+   1.1 This Project may only be installed and used free of charge as an
+       extension of FengChuiChui (FCC).
+
+   1.2 在满足上述用途的前提下，允许为本项目随 风吹吹（FCC） 一起复制和传播
+       完整的原始副本。
+
+   1.2 Provided the above purpose is met, complete and unmodified original
+       copies of this Project may be copied and distributed together with
+       FengChuiChui (FCC).
+
+2. 限制条款 / 2. Restrictions
+
+   2.1 禁止将本项目全部或部分（包括代码、资源文件及其衍生作品）用于
+       风吹吹（FCC） 扩展之外的任何用途，包括但不限于：
+
+   2.1 It is prohibited to use this Project, in whole or in part (including
+       the code, resource files, and derivative works thereof), for any
+       purpose other than as an extension of FengChuiChui (FCC), including
+       but not limited to:
+
+       (a) 集成、移植或嵌入到任何其他软件、固件、硬件产品或在线服务中；
+       (a) integrating, porting, or embedding it into any other software,
+           firmware, hardware product, or online service;
+
+       (b) 作为独立程序、独立库、独立数据包单独运行、分发或销售；
+       (b) running, distributing, or selling it as a standalone program,
+           library, or data package;
+
+       (c) 用于训练、蒸馏或以其他方式改进任何机器学习/人工智能模型；
+       (c) using it to train, distill, or otherwise improve any machine
+           learning / artificial intelligence model;
+
+       (d) 用于任何商业用途。
+       (d) using it for any commercial purpose.
+
+   2.2 禁止对本项目的任何部分进行再许可、转授权、出售、出租或以其他方式
+       转让本协议赋予的权利。
+
+   2.2 It is prohibited to sublicense, transfer, sell, rent, or otherwise
+       convey the rights granted under this Agreement with respect to any
+       part of this Project.
+
+   2.3 如需超出上述授权范围使用本项目，必须事先获得版权所有者的书面授权。
+
+   2.3 Any use of this Project beyond the scope of the above grant requires
+       prior written authorization from the copyright holder.
+
+3. 免责声明 / 3. Disclaimer of Warranty
+
+   3.1 本项目按"现状"（AS IS）提供，不附带任何形式的明示或暗示的保证，
+       包括但不限于对适销性、特定用途适用性、准确性、完整性和不侵权的保证。
+
+   3.1 This Project is provided "AS IS", without warranty of any kind,
+       express or implied, including but not limited to the warranties of
+       merchantability, fitness for a particular purpose, accuracy,
+       completeness, and non-infringement.
+
+   3.2 在任何情况下，无论因何原因且基于任何责任理论，无论是合同责任、侵权
+       责任（包括疏忽）还是其他责任，版权所有者均不对因使用或无法使用本项目
+       而导致的任何索赔、损害或其他责任承担责任，包括但不限于直接损失、
+       间接损失、附带损失、特殊损失、惩罚性损失或后果性损失。
+
+   3.2 In no event and under no theory of liability, whether in contract,
+       tort (including negligence) or otherwise, shall the copyright holder
+       be liable for any claim, damages, or other liability arising from,
+       out of, or in connection with the use of or inability to use this
+       Project, including but not limited to direct, indirect, incidental,
+       special, punitive, or consequential damages.
+
+   3.3 使用本项目所产生的一切风险由使用者自行承担。使用者应自行确保其使用
+       行为符合适用法律法规及第三方权利要求。
+
+   3.3 All risks arising from the use of this Project are borne solely by
+       the user. The user shall ensure that their use complies with
+       applicable laws and regulations as well as third-party rights.
+
+4. 其他 / 4. Miscellaneous
+
+   4.1 本协议构成版权所有者与使用者之间关于本项目使用的完整协议。未明确
+       授予的权利均由版权所有者保留。
+
+   4.1 This Agreement constitutes the entire agreement between the copyright
+       holder and the user regarding the use of this Project. All rights not
+       expressly granted are reserved by the copyright holder.
+
+   4.2 若本协议的任何条款被认定无效或不可执行，不影响其余条款的效力。
+
+   4.2 If any provision of this Agreement is held invalid or unenforceable,
+       the remaining provisions shall remain in full force and effect.
+
+   4.3 版权所有者保留随时修改本协议的权利，修改后的协议适用于修改发布后
+       的使用行为。
+
+   4.3 The copyright holder reserves the right to modify this Agreement at
+       any time, and the modified Agreement applies to use occurring after
+       its publication.
