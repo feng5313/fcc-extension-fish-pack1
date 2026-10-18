@@ -1,14 +1,11 @@
-风吹吹（FCC，https://github.com/feng5313/fcc）Fish Pack 扩展 许可协议 / FCC Fish Pack Extension License
-Copyright (c) 2026 fcc-extension-fish-pack1 authors. All rights reserved.
+许可协议 / License
 
-本许可协议（以下简称"本协议"）适用于本项目的全部内容，包括但不限于所有源代码
-（如 fish.lua）、资源文件（如 res/ 目录、res.fpk）、文档及其他配套文件
-（以下统称"本项目"）。
+本许可协议（以下简称"本协议"）适用于本项目的全部内容，包括但不限于所有源代码、
+文档及其他配套文件（以下统称"本项目"）。
 
 This license agreement (hereinafter "this Agreement") applies to the entire
-contents of this project, including but not limited to all source code (e.g.
-fish.lua), resource files (e.g. the res/ directory and res.fpk), documentation
-and other accompanying files (hereinafter collectively "this Project").
+contents of this project, including but not limited to all source code, 
+documentation and other accompanying files (hereinafter collectively "this Project").
 
 本协议以中英文对照形式提供，两种文本如有歧义或不一致之处，以中文版为准。
 
@@ -22,13 +19,6 @@ shall prevail.
 
    1.1 This Project may only be installed and used free of charge as an
        extension of Flow See See (FCC, https://github.com/feng5313/fcc).
-
-   1.2 在满足上述用途的前提下，允许为本项目随 风吹吹（FCC，https://github.com/feng5313/fcc） 一起复制和传播
-       完整的原始副本。
-
-   1.2 Provided the above purpose is met, complete and unmodified original
-       copies of this Project may be copied and distributed together with
-       Flow See See (FCC, https://github.com/feng5313/fcc).
 
 2. 限制条款 / 2. Restrictions
 
