@@ -2631,14 +2631,17 @@ fcc.on_update(function(t)
 	-- 与albedo同布局同rUT映射), 全36完成后静止(atlas常驻=备用, FS注入按
 	-- vEmNormal.x门控消费)。luajit下单变体~20-60ms, 启动暖机期0.15s/条摊开。
 	-- atlas cache已含法线槽(build/install期gen pump生成) → 探测首槽
-	-- (variant=NSPEC, 顺序写入语义首槽在即全在)已上传且尺寸=素材原生 →
-	-- 整条管线跳过。
+	-- (variant=NSPEC, 顺序写入语义首槽在即全在)像素已在atlas CPU镜像
+	-- (generated) 且尺寸=素材原生 → 整条管线跳过。判据用 generated 而非
+	-- uploaded: 按需上传门(#2654)下未采样的法线槽不会被传GPU, uploaded
+	-- 恒false → 每次运行全量重算36×decode+Sobel(实测8.4s); generated=
+	-- cache加载/管线已算过的像素事实, GPU上传仍按需(法线开启才采样才传)。
 	if G.normIdx == 0 and not G.normProbeDone and G.type then
 		G.normProbeDone = true
 		local sp0 = SPECIES[BYVAR[0] or 1]
 		local si = fcc.rpc("particle", "slot_info", { type = G.type, variant = NSPEC })
 		local want = G.texDims and G.texDims[sp0.tex]
-		if type(si) == "table" and si.uploaded and want and si.w == want[1] and si.h == want[2] then
+		if type(si) == "table" and si.generated and want and si.w == want[1] and si.h == want[2] then
 			G.normIdx = NSPEC
 			log("法线槽已就绪(atlas cache), 跳过重算管线")
 		end
