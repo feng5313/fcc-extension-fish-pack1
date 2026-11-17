@@ -662,7 +662,7 @@ local function ensureType(texDims)
 		-- 仍驻场atlas备用, 仅参数开启才采样)。
 		-- 视角零声明 — 继承引擎鱼群行为域默认(behaviorOf==Snow,
 		-- rpcMakeEmitter/applyTypeDefaults内置继承, 值随引擎单源演进)。
-		defaults = { light_str = 1.5, env_ambient = 1.2, normal_map = 0 },
+		defaults = { light_str = 1.0, env_ambient = 1.2, normal_map = 0 },
 		-- 类别默认发射位置=0全图(main系统) — 面板选中鱼类扩展类别后
 		-- 新发射器默认全图发射, 可经面板「发射位置」切换其它模式
 		emit_mode = 0,
@@ -679,9 +679,9 @@ local function ensureType(texDims)
 		},
 		-- fsEnterDefaults(引擎对称钩子, 镜像fsExitDefaults) — 「发射位置」
 		-- 切入全屏(非5→5)时同帧置面板滑条+重建后发射器双端:
-		-- sizeOverride=20(SIZE_BASE同源, FS暗底大粒子)+顶光1.5。
+		-- sizeOverride=20(SIZE_BASE同源, FS暗底大粒子)+顶光1.0。
 		-- 视角零声明 — 继承引擎鱼群域默认, 面板可调。
-		fsEnterDefaults = { sizeOverride = 20.0, lightDirStr = 1.5 },
+		fsEnterDefaults = { sizeOverride = 20.0, lightDirStr = 1.0 },
 		panel = {
 			{
 				param = "vfxC",
@@ -1795,7 +1795,7 @@ local function addEmitterFor(i)
 			-- 30%idle+30%慢游, #2225 flyMulF≥1禁idle), 其余1.0原速
 			vfxF = sp.vfxF or 1.0,
 			envAmbientCoef = 1.2, -- 水体漫射环境(默认1.2)
-			lightDirStr = 1.5, -- 顶光强度(默认1.5)
+			lightDirStr = 1.0, -- 顶光强度(默认1.0)
 			-- 光照水平/俯仰角默认90/90(与register_type声明同源)
 			lightDirRoll = 90.0,
 			lightDirPitch = 90.0,
